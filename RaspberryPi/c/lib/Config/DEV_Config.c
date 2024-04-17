@@ -34,7 +34,7 @@ void DEV_SetBacklight(UWORD Value)
     bcm2835_pwm_set_data(0,Value);
     
 #elif USE_WIRINGPI_LIB
-    pwmWrite(LCD_BL,Value);
+    // pwmWrite(LCD_BL,Value);
     
 #elif USE_DEV_LIB 
     
@@ -128,7 +128,7 @@ static void DEV_GPIO_Init(void)
     DEV_GPIO_Mode(LCD_CS, 1);
     DEV_GPIO_Mode(LCD_RST, 1);
     DEV_GPIO_Mode(LCD_DC, 1);
-    DEV_GPIO_Mode(LCD_BL, 1);
+    // DEV_GPIO_Mode(LCD_BL, 1);
     
     DEV_GPIO_Mode(KEY_UP_PIN, 0);
     DEV_GPIO_Mode(KEY_DOWN_PIN, 0);
@@ -139,7 +139,7 @@ static void DEV_GPIO_Init(void)
     DEV_GPIO_Mode(KEY2_PIN, 0);
     DEV_GPIO_Mode(KEY3_PIN, 0);
     LCD_CS_1;
-	LCD_BL_1;
+	// LCD_BL_1;
     
 }
 /******************************************************************************
@@ -165,7 +165,7 @@ UBYTE DEV_ModuleInit(void)
     bcm2835_spi_chipSelect(BCM2835_SPI_CS0);                     //set CE0
     bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, LOW);     //enable cs0
 	
-	bcm2835_gpio_fsel(LCD_BL, BCM2835_GPIO_FSEL_ALT5);
+	// bcm2835_gpio_fsel(LCD_BL, BCM2835_GPIO_FSEL_ALT5);
     bcm2835_pwm_set_clock(BCM2835_PWM_CLOCK_DIVIDER_16);
     
 	bcm2835_pwm_set_mode(0, 1, 1);
@@ -182,8 +182,8 @@ UBYTE DEV_ModuleInit(void)
     }
     DEV_GPIO_Init();
     wiringPiSPISetup(0,25000000);
-	pinMode (LCD_BL, PWM_OUTPUT);
-    pwmWrite(LCD_BL,512);
+	// pinMode (LCD_BL, PWM_OUTPUT);
+    // pwmWrite(LCD_BL,512);
 
 #elif  USE_DEV_LIB
     char buffer[NUM_MAXBUF];

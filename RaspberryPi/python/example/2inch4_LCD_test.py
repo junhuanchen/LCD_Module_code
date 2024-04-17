@@ -69,13 +69,54 @@ try:
     text= u"微雪电子"
     draw.text((5, 200),text, fill = "BLUE",font=Font3)
     image1=image1.rotate(0)
-    disp.ShowImage(image1)
-    time.sleep(1)
-    logging.info("show image")
-    image = Image.open('../pic/LCD_2inch4.jpg')	
-    image = image.rotate(0)
-    disp.ShowImage(image)
-    time.sleep(3)
+
+
+    import threading
+    import time
+    
+    running = True
+
+    class myThread (threading.Thread): 
+        def __init__(self, threadID, name, counter):
+            threading.Thread.__init__(self)
+            self.image2 = Image.open('../pic/LCD_2inch4.jpg')
+            self.threadID = threadID
+        def run(self):
+            print("Starting " + self.name)
+
+            import cv2
+            # img = cv2.imread('../pic/LCD_2inch4.jpg')
+            # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            global running
+            while running:
+                cap = cv2.VideoCapture('./output.mp4')
+                while cap.isOpened():
+                    time.sleep(0.01)
+                    ret, img = cap.read()
+                    if ret:
+                        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                        self.image2 = Image.fromarray(img)
+                    else:
+                        break
+
+            print("Exiting " + self.name)
+    thread1 = myThread(1, "Thread-1", 1)
+    thread1.start()
+
+    old = time.time()
+    running = True
+    while running:
+        disp.ShowImage(thread1.image2.copy())
+        # disp.ShowImage(image1.copy())
+        print("time ", 1000 / ((time.time() - old) * 1000))
+        old = time.time()
+        # disp.clear_color(0xFF00)
+        # time.sleep(0.01)
+        # logging.info("show image")
+        # image = Image.open('../pic/LCD_2inch4.jpg')	
+        # image = image.rotate(0)
+        # disp.ShowImage(image)
+        # time.sleep(1)
     disp.module_exit()
     logging.info("quit:")
 except IOError as e:
@@ -83,4 +124,4 @@ except IOError as e:
 except KeyboardInterrupt:
     disp.module_exit()
     logging.info("quit:")
-    exit()
+running = False

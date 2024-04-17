@@ -45,8 +45,8 @@
 #define LCD_2IN4_DC_0	LCD_DC_0	
 #define LCD_2IN4_DC_1	LCD_DC_1	
 	                  
-#define LCD_2IN4_BL_0	LCD_BL_0	
-#define LCD_2IN4_BL_1	LCD_BL_1	
+// #define LCD_2IN4_BL_0	LCD_BL_0	
+// #define LCD_2IN4_BL_1	LCD_BL_1	
 
 void LCD_2IN4_Init(void); 
 void LCD_2IN4_Clear(UWORD Color);
