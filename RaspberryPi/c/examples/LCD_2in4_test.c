@@ -58,19 +58,25 @@ void LCD_2IN4_test(void)
     Paint_DrawString_EN(5, 90, "waveshare", &Font20, RED, IMAGE_BACKGROUND);
 
     Paint_DrawNum(5, 160, 123456789, &Font20, GREEN, IMAGE_BACKGROUND);
-	Paint_DrawString_CN(5,200, "Î¢Ñ©µç×Ó",  &Font24CN,IMAGE_BACKGROUND,BLUE);   
+	Paint_DrawString_CN(5,200, "ï¿½ï¿½",  &Font24CN,IMAGE_BACKGROUND,BLUE);   
     // /*3.Refresh the picture in RAM to LCD*/
     LCD_2IN4_Display((UBYTE *)BlackImage);
-	DEV_Delay_ms(3000);
+	DEV_Delay_ms(1000);
     // /* show bmp */
 	printf("show bmp\r\n");
 	
-	GUI_ReadBmp("./pic/LCD_2inch4.bmp");    
-    LCD_2IN4_Display((UBYTE *)BlackImage);
-    DEV_Delay_ms(3000);
-	
+    for (int i = 0; i < 100; i++)
+    {
 
-	
+        GUI_ReadBmp("./pic/LCD_2inch.bmp");    
+        LCD_2IN4_Display((UBYTE *)BlackImage);
+        // DEV_Delay_ms(10);
+        
+        GUI_ReadBmp("./pic/LCD_2inch4.bmp");    
+        LCD_2IN4_Display((UBYTE *)BlackImage);
+        // DEV_Delay_ms(1000);
+    }
+
     /* Module Exit */
     free(BlackImage);
     BlackImage = NULL;

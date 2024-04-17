@@ -6,6 +6,8 @@
 
 int main(int argc, char *argv[])
 {
+    LCD_2IN4_test();
+    return ;
     if (argc != 2){
         printf("please input LCD type!\r\n");
         printf("example: sudo ./main -1.3\r\n");
